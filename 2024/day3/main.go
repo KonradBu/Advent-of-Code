@@ -8,7 +8,7 @@ import (
 )
 
 func main(){
-	data, err := os.Open("/home/konradburgi/Documents/hhu/gitCode/adventOfCode/2024/three/input.txt")
+	data, err := os.Open("/home/konradburgi/Documents/hhu/gitCode/adventOfCode/2024/day3/input.txt")
 	if err != nil{
 		panic("File :(")
 	}
@@ -43,14 +43,12 @@ func main(){
 			buffer = "d"
 		case r == "o" && buffer == "d":
 			buffer = "do"
-		case r == "(" :
-			if buffer == "mul"{
+		case r == "("  && buffer == "mul":
 				buffer = "mul(#"
-			}
-			if buffer == "do"{
-				buffer = "do(."
-			}
-			if buffer == ""
+		case r == "(" && buffer == "do":
+				buffer = "do("
+		case r == "(" && buffer == "don,t":
+				buffer = "don,t("
 		case r == "n" && buffer == "do":
 			buffer = "don"
 		case r == "'" && buffer == "don":
@@ -71,10 +69,19 @@ func main(){
 			if do{
 				sum += val1 * val2
 			}
-			
+			buffer = ""
+			s1 = ""
+			s2 = ""
+			val1 = 0
+			val2 = 0
+		case r == ")" && last == "(":
 			fmt.Println(buffer)
-			fmt.Println(val1)
-			fmt.Println(val2)
+			if buffer == "don,t("{
+				do = false
+			}
+			if buffer == "do("{
+				do = true
+			}
 			buffer = ""
 			s1 = ""
 			s2 = ""
